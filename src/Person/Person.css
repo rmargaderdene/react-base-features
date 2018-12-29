@@ -7,8 +7,19 @@
     text-align: center;    
 }
 
-/* @media (min-width: 500px) {
+.Person input {
+    width: 50%;
+    text-align: center;
+}
+
+ @media (min-width: 500px) {
     .Person {
-        width: 450px;
+        width: 450px;                
     }
-} */
+} 
+
+@media (max-width: 499px) {
+    .Person {
+        background-color: lightblue;
+    }
+}
