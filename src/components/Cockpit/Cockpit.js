@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import classes from './Cockpit.css';
 
 const cockpit = (props) => {
 
-  let btnClass = '';
-
+  let btnClass = classes.Button;
   if (props.showPersons) {
-    btnClass = classes.Red;
+    btnClass = [classes.Button, classes.Red].join(' ');
   }
 
   const assignedClasses = [];
@@ -18,12 +17,12 @@ const cockpit = (props) => {
   }
 
   return (
-    <div className={classes.Cockpit}>
+    <Fragment>
       <h1>{props.appTitle}</h1>
       <p className={assignedClasses.join(' ')}>This is really text</p>
       <button className={btnClass}
         onClick={props.toggle}>Switch Name</button>
-    </div>
+    </Fragment>
   );
 }
 

@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import classes from './Person.css';
+import withClass from '../../../hoc/withClass';
 
 class Person extends Component {
 
@@ -20,13 +21,19 @@ class Person extends Component {
     render() {
         console.log('[Person.js] Inside the render()');
         return (
-            <div className={classes.Person}>
+            <Fragment>
                 <p onClick={this.props.clicked}>I'am {this.props.name} and {this.props.age} years old!</p>
                 <p>{this.props.children}</p>
                 <input type='text' onChange={this.props.changed} value={this.props.name} />
-            </div>
-        );
+            </Fragment>
+        )
+
+        // return [
+        //     <p key="1" onClick={this.props.clicked}>I'am {this.props.name} and {this.props.age} years old!</p>,
+        //     <p key="2">{this.props.children}</p>,
+        //     <input key="3" type='text' onChange={this.props.changed} value={this.props.name} />
+        // ]
     }
 }
 
-export default Person;
+export default withClass(Person, classes.Person);
