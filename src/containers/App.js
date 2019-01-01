@@ -28,6 +28,21 @@ class App extends Component {
     console.log('[App.js] Inside the componentDidMount()');
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('[UPDATE App.js] Inside the shouldComponentUpdate()', nextProps, nextState);
+    return nextState.persons !== this.state.persons ||
+      nextState.showPersons !== this.state.showPersons;
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log('[UPDATE App.js] Inside the componentWillUpdate()', nextProps, nextState);
+  }
+
+  componentDidUpdate() {
+    console.log('[UPDATE App.js] Inside the componentDidUpdate()');
+  }
+
+
   //modern approach
   // state = {
   //   persons: [
@@ -68,13 +83,17 @@ class App extends Component {
     let persons = null;
 
     if (this.state.showPersons) {
-      persons = <Persons persons={this.state.persons}
-        nameChange={this.nameChangedHandler}
-        delete={this.deletePersonHandler} />
+      persons = <Persons
+        persons={this.state.persons}
+        changed={this.nameChangedHandler}
+        clicked={this.deletePersonHandler} />
     }
 
     return (
       <div className={classes.App}>
+        <button onClick={() => this.setState({
+          showPersons: true
+        })}>Show Persons</button>
         <Cockpit
           appTitle={this.props.title}
           showPersons={this.state.showPersons}

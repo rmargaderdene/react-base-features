@@ -17,6 +17,25 @@ class Persons extends Component {
         console.log('[Persons.js] Inside the componentDidMount()');
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log('[UPDATE Persons.js] Inside the componentWillReceiveProps()', nextProps);
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log('[UPDATE Persons.js] Inside the shouldComponentUpdate()', nextProps, nextState);
+        return nextProps.persons !== this.props.persons ||
+            nextProps.changed !== this.props.changed ||
+            nextProps.clicked !== this.props.clicked;
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        console.log('[UPDATE Persons.js] Inside the componentWillUpdate()', nextProps, nextState);
+    }
+
+    componentDidUpdate() {
+        console.log('[UPDATE Persons.js] Inside the componentDidUpdate()');
+    }
+
     render() {
         console.log('[Persons.js] Inside the render()');
         return (
@@ -25,8 +44,8 @@ class Persons extends Component {
                     key={person.id}
                     name={person.name}
                     age={person.age}
-                    nameChange={(event) => this.props.nameChange(event, person.id)}
-                    click={() => this.props.delete(index)}
+                    changed={(event) => this.props.changed(event, person.id)}
+                    clicked={() => this.props.clicked(index)}
                 />
             })
         );
