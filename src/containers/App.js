@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import classes from './App.css';
 
-class App extends Component {
+class App extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -28,11 +28,11 @@ class App extends Component {
     console.log('[App.js] Inside the componentDidMount()');
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log('[UPDATE App.js] Inside the shouldComponentUpdate()', nextProps, nextState);
-    return nextState.persons !== this.state.persons ||
-      nextState.showPersons !== this.state.showPersons;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('[UPDATE App.js] Inside the shouldComponentUpdate()', nextProps, nextState);
+  //   return nextState.persons !== this.state.persons ||
+  //     nextState.showPersons !== this.state.showPersons;
+  // }
 
   componentWillUpdate(nextProps, nextState) {
     console.log('[UPDATE App.js] Inside the componentWillUpdate()', nextProps, nextState);
