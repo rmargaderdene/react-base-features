@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 
 import classes from './Person.css';
 import withClass from '../../../hoc/withClass';
+import { AuthContext } from '../../../containers/App';
 
 class Person extends Component {
 
@@ -30,6 +31,9 @@ class Person extends Component {
         console.log('[Person.js] Inside the render()');
         return (
             <Fragment>
+                <AuthContext.Consumer>
+                    {auth => auth ? <p>I'm authenticated!</p> : null}
+                </AuthContext.Consumer>
                 <p onClick={this.props.clicked}>I'am {this.props.name} and {this.props.age} years old!</p>
                 <p>{this.props.children}</p>
                 <input

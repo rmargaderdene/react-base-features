@@ -23,8 +23,11 @@ const cockpit = (props) => {
       <p className={assignedClasses.join(' ')}>This is really text</p>
       <button className={btnClass}
         onClick={props.toggle}>Switch Name</button>
+      <button onClick={props.login}>Log in</button>
     </Fragment>
   );
 }
 
-export default cockpit;
+//React.memo - > if you have props always need to be re-rendered
+//                  and checking of the changes in props is redundant
+export default React.memo(cockpit);

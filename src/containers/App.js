@@ -7,6 +7,8 @@ import classes from './App.css';
 import withClass from '../hoc/withClass';
 import Person from '../components/Persons/Person/Person';
 
+export const AuthContext = React.createContext(false);
+
 class App extends PureComponent {
 
   constructor(props) {
@@ -20,10 +22,12 @@ class App extends PureComponent {
         { id: 'p3', name: 'Bat', age: 26 }
       ],
       showPersons: false,
-      toggleClicked: 0
+      toggleClicked: 0,
+      authenticated: false
     }
   }
 
+  // discouraged to use
   componentWillMount() {
     console.log('[App.js] Inside the componentWillMount()');
   }
@@ -38,8 +42,23 @@ class App extends PureComponent {
   //     nextState.showPersons !== this.state.showPersons;
   // }
 
+  // discouraged to use
   componentWillUpdate(nextProps, nextState) {
     console.log('[UPDATE App.js] Inside the componentWillUpdate()', nextProps, nextState);
+  }
+
+  //works right before render and componentDidMount
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log('[UPDATE App.js] Inside the getDerivedStateFromProps()',
+      nextProps,
+      prevState);
+
+    return prevState;
+  }
+
+  //works right before componentDidUpdate is done
+  getSnapshotBeforeUpdate() {
+    console.log('[UPDATE App.js] Inside the getSnapshotBeforeUpdate');
   }
 
   componentDidUpdate() {
@@ -87,6 +106,10 @@ class App extends PureComponent {
     });
   }
 
+  loginHandler = () => {
+    this.setState({ authenticated: true });
+  }
+
   render() {
     console.log('[App.js] Inside the render()');
     let persons = null;
@@ -95,7 +118,8 @@ class App extends PureComponent {
       persons = <Persons
         persons={this.state.persons}
         changed={this.nameChangedHandler}
-        clicked={this.deletePersonHandler} />
+        clicked={this.deletePersonHandler}
+      />
     }
 
     return (
@@ -107,8 +131,11 @@ class App extends PureComponent {
           appTitle={this.props.title}
           showPersons={this.state.showPersons}
           persons={this.state.persons}
+          login={this.loginHandler}
           toggle={this.togglePersonsHandler} />
-        {persons}
+        <AuthContext.Provider value={this.state.authenticated}>
+          {persons}
+        </AuthContext.Provider>
       </Fragment>
     );
   }
@@ -119,6 +146,6 @@ Person.propTypes = {
   name: Proptype.string,
   age: Proptype.number,
   changed: Proptype.func
-};  
+};
 
 export default withClass(App, classes.App);
