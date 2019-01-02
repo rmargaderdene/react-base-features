@@ -1,9 +1,11 @@
 import React, { PureComponent, Fragment } from 'react';
+import Proptype from 'prop-types';
 
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import classes from './App.css';
 import withClass from '../hoc/withClass';
+import Person from '../components/Persons/Person/Person';
 
 class App extends PureComponent {
 
@@ -111,5 +113,12 @@ class App extends PureComponent {
     );
   }
 }
+
+Person.propTypes = {
+  click: Proptype.func,
+  name: Proptype.string,
+  age: Proptype.number,
+  changed: Proptype.func
+};  
 
 export default withClass(App, classes.App);
